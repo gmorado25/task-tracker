@@ -15,31 +15,35 @@ function AddTask({ addTask }) {
   };
 
   return (
-    <form onSubmit={onSubmit} style={{
-      display: 'flex',
-      justifyContent: 'flex-end',
-      alignItems: 'center',
-      gap: '10px',
-      marginBottom: '20px'
-    }}>
+    <form
+      onSubmit={onSubmit}
+      className="flex flex-col md:flex-row gap-3 mb-6 items-center justify-end"
+    >
       <input
         value={text}
         onChange={(e) => setText(e.target.value)}
         placeholder="New task"
-        style={{ padding: '8px', width: '300px' }}
+        className="p-2 border border-gray-300 rounded w-full md:w-1/2 dark:bg-gray-800"
       />
       <input
         type="date"
         value={dueDate}
         onChange={(e) => setDueDate(e.target.value)}
-        style={{ marginLeft: 10 }}
+        className="p-2 border border-gray-300 rounded dark:bg-gray-800"
       />
-      <select value={priority} onChange={(e) => setPriority(e.target.value)}>
+      <select
+        value={priority}
+        onChange={(e) => setPriority(e.target.value)}
+        className="p-2 border border-gray-300 rounded dark:bg-gray-800">
         <option value="low">Low</option>
         <option value="medium">Medium</option>
         <option value="high">High</option>
       </select>
-      <button type="submit" style={{ padding: '8px 16px' }}>Add</button>
+      <button
+        type="submit"
+        className="bg-pastel-blue text-black font-semibold px-4 py-2 rounded hover:bg-pastel-green transition">
+        Add
+      </button>
     </form>
   );
 }
