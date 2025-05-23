@@ -9,12 +9,12 @@ function getItemStyle(style, isDragging) {
   };
 }
 
-function TaskList({ tasks, onToggle, onDelete }) {
+function TaskList({ tasks, onToggle, onDelete, grouped = false, droppableId = "task-list" }) {
   return (
-    <Droppable droppableId="task-list">
+    <Droppable droppableId={droppableId}>
       {(provided) => (
         <ul
-          className="space-y-3"
+          className={`flex flex-col gap-4`}
           {...provided.droppableProps}
           ref={provided.innerRef}
         >
@@ -26,7 +26,9 @@ function TaskList({ tasks, onToggle, onDelete }) {
                   {...provided.draggableProps}
                   {...provided.dragHandleProps}
                   style={getItemStyle(provided.draggableProps.style, snapshot.isDragging)}
-                  className={`flex justify-between items-center p-4 rounded shadow-sm ${snapshot.isDragging ? 'bg-pastel-green' : 'bg-gray-100 dark:bg-gray-800'
+                  className={`flex justify-between items-center p-4 rounded shadow-sm border border-gray-200 dark:border-gray-700
+                    hover:bg-pastel-blue/40 transition-colors duration-150
+                    ${snapshot.isDragging ? 'bg-pastel-green' : 'bg-transparent'}
                     }`}
                 >
                   <span
@@ -52,15 +54,12 @@ function TaskList({ tasks, onToggle, onDelete }) {
                         {task.priority}
                       </span>
                     </div>
-
                     {task.dueDate && (
                       <span className="text-sm italic text-gray-500">
                         due {new Date(task.dueDate).toLocaleDateString()}
                       </span>
                     )}
                   </span>
-
-
                   <button
                     onClick={() => onDelete(task._id)}
                     className="ml-4 px-3 py-1 text-white bg-red-500 rounded hover:bg-red-600 transition"
